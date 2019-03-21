@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-int len1=1;
+int len1 = 1;
+
 class Chat extends StatefulWidget {
   @override
   _ChatState createState() => _ChatState();
@@ -8,7 +9,6 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   TextEditingController _msg = new TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _ChatState extends State<Chat> {
           Container(
             alignment: Alignment.center,
             //color: Colors.white,
-            height: query.size.height*giveheight()/10,
+            height: query.size.height * giveheight() / 10,
             padding: const EdgeInsets.all(7.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -74,10 +74,10 @@ class _ChatState extends State<Chat> {
                       Icons.send,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () => sendMessage(),
                   ),
                   backgroundColor: Colors.teal,
-                  radius: query.size.aspectRatio * 49,
+                  radius: query.size.width / 12,
                 ),
               ],
             ),
@@ -88,15 +88,21 @@ class _ChatState extends State<Chat> {
   }
 
   giveheight() {
-    double len = _msg.text.length/20;
+    double len = _msg.text.length / 20;
     int a = len.toInt();
-    if (a > 3 ) {
+    if (a > 3) {
       a = 3;
-    }
-    else if(a<1) a=1;
+    } else if (a < 1) a = 1;
     setState(() {
       len1 = a;
     });
     return len1;
+  }
+
+  sendMessage() {
+
+
+
+    
   }
 }

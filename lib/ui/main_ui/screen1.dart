@@ -91,6 +91,14 @@ class _UIState extends State<UI> {
 }
 
 Widget appinterface() {
+  Map<dynamic, dynamic> user = {
+    "name": "",
+    "phone": "",
+    "email": "",
+    "photourl": "",
+    "id": ""
+  };
+  List<Map<dynamic, dynamic>> users = new List();
   return new Stack(
     children: <Widget>[
       Container(
@@ -102,32 +110,43 @@ Widget appinterface() {
                 child: CircularProgressIndicator(),
               );
             } else {
+              for (int i = 0; i < snapshot.data.documents.length; i++) {
+                    if (Get().emailid ==
+                        snapshot.data.documents[i].data['email']) 
+                        {}
+                    else {
+                      user = {
+                        "name": snapshot.data.documents[i].data['name'],
+                        "phone": snapshot.data.documents[i].data['phone'],
+                        "email": snapshot.data.documents[i].data['email'],
+                        "photourl":
+                            snapshot.data.documents[i].data['photourl'],
+                        "id": snapshot.data.documents[i].data['id'],
+                      };
+                      users.add(user);
+                    }
+                  }
               return ListView.builder(
                 padding: EdgeInsets.all(0.0),
-                itemBuilder: (context, index) {
+                itemCount: users.length,
+                itemBuilder: (context,index){
                   return Column(
                     children: <Widget>[
+
                       ListTile(
                         leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              snapshot.data.documents[index].data['photourl']),
+                          backgroundImage: NetworkImage(users[index]['photourl']),
                         ),
-                        title:
-                            Text(snapshot.data.documents[index].data['name']),
-                        subtitle:
-                            Text(snapshot.data.documents[index].data['email']),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Chat()),
-                          );
-                        },
+                        title: Text(users[index]['name']),
+                        subtitle: Text(users[index]['email']),
                       ),
+
                       Divider(),
+
                     ],
                   );
-                },
-                itemCount: snapshot.data.documents.length,
+                }
+                               
               );
             }
           },
@@ -145,3 +164,5 @@ Widget appinterface() {
     ],
   );
 }
+
+
