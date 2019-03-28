@@ -5,6 +5,9 @@ import '../../UserData/data.dart';
 import '../front_screen/front.dart';
 import './camera_screen.dart';
 
+String name,id;
+
+Chat chat=new Chat();
 class UI extends StatefulWidget {
   @override
   _UIState createState() => _UIState();
@@ -74,6 +77,7 @@ class _UIState extends State<UI> {
                 onTap: () {
                   setState(() {
                     googleSignIn.signOut();
+                    
                   });
                   Navigator.push(
                     context,
@@ -111,43 +115,48 @@ Widget appinterface() {
               );
             } else {
               for (int i = 0; i < snapshot.data.documents.length; i++) {
-                    if (Get().emailid ==
-                        snapshot.data.documents[i].data['email']) 
-                        {}
-                    else {
-                      user = {
-                        "name": snapshot.data.documents[i].data['name'],
-                        "phone": snapshot.data.documents[i].data['phone'],
-                        "email": snapshot.data.documents[i].data['email'],
-                        "photourl":
-                            snapshot.data.documents[i].data['photourl'],
-                        "id": snapshot.data.documents[i].data['id'],
-                      };
-                      users.add(user);
-                    }
-                  }
-              return ListView.builder(
-                padding: EdgeInsets.all(0.0),
-                itemCount: users.length,
-                itemBuilder: (context,index){
-                  return Column(
-                    children: <Widget>[
-
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(users[index]['photourl']),
-                        ),
-                        title: Text(users[index]['name']),
-                        subtitle: Text(users[index]['email']),
-                      ),
-
-                      Divider(),
-
-                    ],
-                  );
+                if (Get().emailid == snapshot.data.documents[i].data['email']) {
+                } else {
+                  user = {
+                    "name": snapshot.data.documents[i].data['name'],
+                    "phone": snapshot.data.documents[i].data['phone'],
+                    "email": snapshot.data.documents[i].data['email'],
+                    "photourl": snapshot.data.documents[i].data['photourl'],
+                    "id": snapshot.data.documents[i].data['id'],
+                  };
+                  users.add(user);
                 }
-                               
-              );
+              }
+              return ListView.builder(
+                  padding: EdgeInsets.all(0.0),
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(users[index]['photourl']),
+                          ),
+                          title: Text(users[index]['name']),
+                          subtitle: Text(users[index]['email']),
+                          onTap: () {
+                            
+                            name=users[index]['name'];
+                            id=users[index]['id'];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                users=new List();
+                                return Chat();
+                              }),
+                            );
+                          },
+                        ),
+                        Divider(),
+                      ],
+                    );
+                  });
             }
           },
         ),
@@ -164,5 +173,3 @@ Widget appinterface() {
     ],
   );
 }
-
-

@@ -92,9 +92,8 @@ class _FrontState extends State<Front> {
           .where('id', isEqualTo: user1.uid)
           .getDocuments();
       final List<DocumentSnapshot> documents = result.documents;
-      print(documents[0].data['emailid']);
+      //print(documents[0].data['emailid']);
       if (documents.length == 0) {
-        // Update data to server if new user
         Firestore.instance
             .collection('users')
             .document(user1.uid)
