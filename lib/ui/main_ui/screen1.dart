@@ -5,7 +5,7 @@ import '../../UserData/data.dart';
 import '../front_screen/front.dart';
 import './camera_screen.dart';
 
-String name,id;
+String rid;
 
 Chat chat=new Chat();
 class UI extends StatefulWidget {
@@ -142,8 +142,8 @@ Widget appinterface() {
                           subtitle: Text(users[index]['email']),
                           onTap: () {
                             
-                            name=users[index]['name'];
-                            id=users[index]['id'];
+                            //name=users[index]['name'];
+                            rid=users[index]['id'];
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
