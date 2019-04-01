@@ -5,9 +5,10 @@ import '../../UserData/data.dart';
 import '../front_screen/front.dart';
 import './camera_screen.dart';
 
-String rid;
+String rid, rname, rpurl;
 
-Chat chat=new Chat();
+Chat chat = new Chat();
+
 class UI extends StatefulWidget {
   @override
   _UIState createState() => _UIState();
@@ -77,7 +78,6 @@ class _UIState extends State<UI> {
                 onTap: () {
                   setState(() {
                     googleSignIn.signOut();
-                    
                   });
                   Navigator.push(
                     context,
@@ -95,14 +95,7 @@ class _UIState extends State<UI> {
 }
 
 Widget appinterface() {
-  Map<dynamic, dynamic> user = {
-    "name": "",
-    "phone": "",
-    "email": "",
-    "photourl": "",
-    "id": ""
-  };
-  List<Map<dynamic, dynamic>> users = new List();
+
   return new Stack(
     children: <Widget>[
       Container(
@@ -114,19 +107,10 @@ Widget appinterface() {
                 child: CircularProgressIndicator(),
               );
             } else {
-              for (int i = 0; i < snapshot.data.documents.length; i++) {
-                if (Get().emailid == snapshot.data.documents[i].data['email']) {
-                } else {
-                  user = {
-                    "name": snapshot.data.documents[i].data['name'],
-                    "phone": snapshot.data.documents[i].data['phone'],
-                    "email": snapshot.data.documents[i].data['email'],
-                    "photourl": snapshot.data.documents[i].data['photourl'],
-                    "id": snapshot.data.documents[i].data['id'],
-                  };
-                  users.add(user);
-                }
-              }
+
+              List users = snapshot.data.documents;
+              users.removeWhere((i) => Get().key == i["id"]);
+              print(users);
               return ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemCount: users.length,
@@ -141,13 +125,13 @@ Widget appinterface() {
                           title: Text(users[index]['name']),
                           subtitle: Text(users[index]['email']),
                           onTap: () {
-                            
                             //name=users[index]['name'];
-                            rid=users[index]['id'];
+                            rid = users[index]['id'];
+                            rname = users[index]['name'];
+                            rpurl = users[index]['photourl'];
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
-                                users=new List();
                                 return Chat();
                               }),
                             );

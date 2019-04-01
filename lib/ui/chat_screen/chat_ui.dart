@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../UserData/data.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 
-//var groupChatId;
+//var gid;
 
 int len1 = 1;
 TextEditingController msg = new TextEditingController();
@@ -17,22 +17,16 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   List<String> listofmessages = new List();
   List<bool> types = new List();
+  String gid;
+  ScrollController listScrollController = new ScrollController();
 
-  void method1() async {
-    listofmessages.clear();
-    types.clear();
-    final QuerySnapshot querysnap =
-        await Firestore.instance.collection('messages').getDocuments();
-    final List<DocumentSnapshot> msgs = querysnap.documents;
-    for (int i = 0; i < msgs.length; i++) {
-      if (Get().key == msgs[i]["senderId"] && rid == msgs[i]["recieverId"]) {
-        types.add(true);
-        listofmessages.add(msgs[i]["message"]);
-      } else if (rid == msgs[i]["senderId"] &&
-          Get().key == msgs[i]["recieverId"]) {
-        types.add(false);
-        listofmessages.add(msgs[i]["message"]);
-      }
+  @override
+  void initState() {
+    super.initState();
+    if (Get().key.hashCode <= rid.hashCode) {
+      gid = '${Get().key}-$rid';
+    } else {
+      gid = '$rid-${Get().key}';
     }
   }
 
@@ -41,7 +35,7 @@ class _ChatState extends State<Chat> {
     MediaQueryData query = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Name'),
+        title: Text(rname),
         actions: <Widget>[Icon(Icons.more_vert)],
         backgroundColor: Colors.teal,
       ),
@@ -53,15 +47,34 @@ class _ChatState extends State<Chat> {
             left: 5.0,
             right: 5.0,
             bottom: 55,
-            child: Container(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  method1();
-                  return messageview(index, query);
-                },
-                reverse: true,
-              ),
+            child: StreamBuilder(
+              stream: Firestore.instance
+                  .collection('messages')
+                  .document(gid)
+                  .collection(gid)
+                  .orderBy('time', descending: true)
+                  .limit(20)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  List listMessage = snapshot.data.documents;
+                  return ListView.builder(
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder: (context, index) {
+                      return messageview(
+                        index,
+                        query,
+                        snapshot.data.documents[index]
+                      );
+                    },
+                    
+                    reverse: true,
+                    controller: listScrollController,
+                  );
+                }
+              },
             ),
           ),
           typebox(query),
@@ -70,70 +83,68 @@ class _ChatState extends State<Chat> {
     );
   }
 
-  int giveheight() {
-    double len = msg.text.length / 20;
-    int a = len.toInt();
-    if (a > 3) {
-      a = 3;
-    } else if (a < 1) a = 1;
-    setState(() {
-      len1 = a;
-    });
-    return len1;
-  }
-
-  void sendMessage(String recieverid, String message) async {
-    _textSubmitted(message);
-    Firestore.instance.collection('messages').document().setData({
-      "senderId": Get().key,
-      "recieverId": recieverid,
-      "message": message,
-      "time": DateTime.now().millisecondsSinceEpoch.toString(),
-    });
-    method1();
-    setState(() {});
-  }
 
 
-  Widget wallpaper(MediaQueryData query) {
-    return Container(
-      color: Colors.blueGrey,
-      height: query.size.height,
-      width: query.size.width,
-    );
+
+  void messageSender(String recieverid, String message) {
+      msg.clear();
+
+      var documentReference = Firestore.instance
+          .collection('messages')
+          .document(gid)
+          .collection(gid)
+          .document(DateTime.now().millisecondsSinceEpoch.toString());
+
+      Firestore.instance.runTransaction((transaction) async {
+        await transaction.set(
+          documentReference,
+          {
+            "senderId": Get().key,
+            "recieverId": recieverid,
+            "message": message,
+            "time": DateTime.now().millisecondsSinceEpoch.toString(),
+          },
+        );
+      });
+      listScrollController.animateTo(0.0,
+          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+     
   }
 
 
-  Widget messageview(int index, MediaQueryData query) {
+  Widget messageview(int index, MediaQueryData query,data) {
+    bool check;
+    check=data["senderId"].toString()==Get().key.toString()?true:false; 
+
     return Column(
       crossAxisAlignment:
-          types[index] ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          check? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisAlignment:
-              types[index] ? MainAxisAlignment.end : MainAxisAlignment.start,
+              check ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: listofmessages[index].length >= 26
+              width: data["message"].toString().length>= 26
                   ? query.size.width / 1.3
                   : null,
               padding: const EdgeInsets.all(10),
               margin: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                  color: check?Colors.lightGreenAccent.shade100:Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Row(
-                mainAxisAlignment: types[index]
+                mainAxisAlignment: check
                     ? MainAxisAlignment.end
                     : MainAxisAlignment.start,
                 children: <Widget>[
-                  listofmessages[index].length >= 26
+                  data["message"].toString().length >= 26
                       ? Flexible(
                           child: Text(
-                            listofmessages[index],
+                            data["message"].toString(),
                             maxLines: 100,
                           ),
                         )
-                      : Text(listofmessages[index])
+                      : Text(data["message"].toString())
                 ],
               ),
             ),
@@ -142,8 +153,6 @@ class _ChatState extends State<Chat> {
       ],
     );
   }
-
-
 
   Widget typebox(MediaQueryData query) {
     return Positioned(
@@ -197,7 +206,9 @@ class _ChatState extends State<Chat> {
                   Icons.send,
                   color: Colors.white,
                 ),
-                onPressed: () => sendMessage(rid, msg.text),
+                onPressed: () {
+                  return msg.text.isNotEmpty?sendMessage(msg.text):null;
+                },
               ),
               backgroundColor: Colors.teal,
               radius: query.size.width / 12,
@@ -208,8 +219,65 @@ class _ChatState extends State<Chat> {
     );
   }
 
-Future<Null> _textSubmitted(String value) async {
+  Future<Null> _textSubmitted(String value) async {
     msg.clear();
   }
 
+
+
+
+  void sendMessage(String message) async {
+    _textSubmitted(message);
+    Firestore.instance
+        .collection('messages')
+        .document(gid)
+        .collection(gid)
+        .document()
+        .setData({
+      "senderId": Get().key,
+      "recieverId": rid,
+      "message": message,
+      "time": DateTime.now().millisecondsSinceEpoch.toString(),
+    });
+    method1();
+    setState(() {});
+  }
+
+  Future<Null> method1() async {
+    listofmessages.clear();
+    types.clear();
+    final QuerySnapshot querysnap =
+        await Firestore.instance.collection('messages').getDocuments();
+    final List<DocumentSnapshot> msgs = querysnap.documents;
+    for (int i = 0; i < msgs.length; i++) {
+      if (Get().key == msgs[i]["senderId"] && rid == msgs[i]["recieverId"]) {
+        types.add(true);
+        listofmessages.add(msgs[i]["message"]);
+      } else if (rid == msgs[i]["senderId"] &&
+          Get().key == msgs[i]["recieverId"]) {
+        types.add(false);
+        listofmessages.add(msgs[i]["message"]);
+      }
+    }
+  }
+
+  int giveheight() {
+    double len = msg.text.length / 20;
+    int a = len.toInt();
+    if (a > 3) {
+      a = 3;
+    } else if (a < 1) a = 1;
+    setState(() {
+      len1 = a;
+    });
+    return len1;
+  }
+
+  Widget wallpaper(MediaQueryData query) {
+    return Container(
+      color: Colors.blueGrey,
+      height: query.size.height,
+      width: query.size.width,
+    );
+  }
 }
