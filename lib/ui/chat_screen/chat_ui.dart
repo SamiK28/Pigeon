@@ -59,7 +59,7 @@ class _ChatState extends State<Chat> {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
-                  List listMessage = snapshot.data.documents;
+                  //List listMessage = snapshot.data.documents;
                   return ListView.builder(
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {

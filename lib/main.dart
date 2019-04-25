@@ -24,10 +24,26 @@ class _MyAppState extends State<MyApp> {
                 initialData: null,
                 builder: (context, snapshot) => snapshot.hasData
                     ? UI()
-                    : Center(
-                        child: Material(
-                          child: CircularProgressIndicator()
+                    : Material(
+                      color: Colors.green,
+                        child: Center(
+                          
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(bottom: 15.0),
+                                child: CircularProgressIndicator(
+                                  semanticsLabel: "Loading...",
+                                  strokeWidth: 3.0,
+                                  backgroundColor: Colors.white,
+                                  
+                                ),
+                              ),
+                              Text("Loading...",style: TextStyle(color: Colors.white),)
+                            ],
                           ),
+                        ),
                       ),
                 future: getUser());
           } else {

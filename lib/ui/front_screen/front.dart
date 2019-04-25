@@ -52,7 +52,7 @@ class _FrontState extends State<Front> {
         height: queryData.size.height / 11,
         width: queryData.size.width / 1.52,
         child: Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
+         
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 15.0),
@@ -61,7 +61,6 @@ class _FrontState extends State<Front> {
               "images/gvector.png",
               height: queryData.size.height / 18,
             ),
-            //Image.asset("images/google.png",fit: BoxFit.,),
             Padding(
               padding: const EdgeInsets.only(right: 27.0),
             ),
@@ -83,7 +82,7 @@ class _FrontState extends State<Front> {
     FirebaseUser user1 = await getUser();
 
     if (user1 != null) {
-      // Check is already sign up
+      
       setState(() {
         check = true;
       });
@@ -92,7 +91,7 @@ class _FrontState extends State<Front> {
           .where('id', isEqualTo: user1.uid)
           .getDocuments();
       final List<DocumentSnapshot> documents = result.documents;
-      //print(documents[0].data['emailid']);
+      
       if (documents.length == 0) {
         Firestore.instance
             .collection('users')

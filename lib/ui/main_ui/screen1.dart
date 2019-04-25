@@ -4,6 +4,7 @@ import '../chat_screen/chat_ui.dart';
 import '../../UserData/data.dart';
 import '../front_screen/front.dart';
 import './camera_screen.dart';
+import './screen3.dart';
 
 String rid, rname, rpurl;
 
@@ -25,6 +26,7 @@ class _UIState extends State<UI> {
             tabs: [
               Tab(icon: Icon(Icons.person)),
               Tab(icon: Icon(Icons.camera)),
+              //Tab(icon: Icon(Icons.location_on),)
             ],
           ),
           title: Text('Pigeon'),
@@ -39,9 +41,14 @@ class _UIState extends State<UI> {
         ),
         body: new TabBarView(
           children: [
+            
             appinterface(),
-            //CameraApp(),
+            //Maps(),
             Cam(),
+            //CameraApp(),
+            
+            
+            
           ],
         ),
         drawer: Drawer(
@@ -104,7 +111,7 @@ Widget appinterface() {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: RefreshProgressIndicator(),
               );
             } else {
 
