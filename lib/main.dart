@@ -25,9 +25,8 @@ class _MyAppState extends State<MyApp> {
                 builder: (context, snapshot) => snapshot.hasData
                     ? UI()
                     : Material(
-                      color: Colors.green,
+                        color: Colors.green,
                         child: Center(
-                          
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -37,10 +36,12 @@ class _MyAppState extends State<MyApp> {
                                   semanticsLabel: "Loading...",
                                   strokeWidth: 3.0,
                                   backgroundColor: Colors.white,
-                                  
                                 ),
                               ),
-                              Text("Loading...",style: TextStyle(color: Colors.white),)
+                              Text(
+                                "Loading...",
+                                style: TextStyle(color: Colors.white),
+                              )
                             ],
                           ),
                         ),
