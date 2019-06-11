@@ -6,12 +6,21 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+
+
+
+
+    <!-- "AR Optional" apps must declare minSdkVersion ≥ 14 -->
+    <uses-sdk android:minSdkVersion="24" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="pigeon"
         android:icon="@mipmap/ic_launcher">
          <meta-data android:name="com.google.android.geo.AIzaSyD2bHUr-tbdfqN2XdVQIMXHlViG-YbQONca"
                     android:value="AIzaSyD2bHUr-tbdfqN2XdVQIMXHlViG-YbQONca"/>
+        <meta-data android:name="com.google.ar.core" android:value="required" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

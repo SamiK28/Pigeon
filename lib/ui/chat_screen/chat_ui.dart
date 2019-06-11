@@ -46,7 +46,7 @@ class _ChatState extends State<Chat> {
             top: 0.0,
             left: 5.0,
             right: 5.0,
-            bottom: 55,
+            bottom: 65,
             child: StreamBuilder(
               stream: Firestore.instance
                   .collection('messages')
@@ -156,20 +156,20 @@ class _ChatState extends State<Chat> {
 
   Widget typebox(MediaQueryData query) {
     return Positioned(
-      bottom: 1.0,
+      bottom: 3.0,
       left: 3.0,
       child: Container(
-        alignment: Alignment.bottomCenter,
+        //alignment: Alignment.bottomCenter,
         //color: Colors.white,
-        height: query.size.height * giveheight() / 10,
-        padding: const EdgeInsets.all(7.0),
+        //height: query.size.height * giveheight() / 10,
+        padding: const EdgeInsets.symmetric(horizontal:7.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(40.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               alignment: Alignment.center,
               child: Row(
@@ -182,7 +182,7 @@ class _ChatState extends State<Chat> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(5.0),
-                    width: query.size.width / 1.9,
+                    width: query.size.width / 1.78,
                     child: TextField(
                       decoration: InputDecoration.collapsed(
                         hintText: 'Type a message',
@@ -200,19 +200,44 @@ class _ChatState extends State<Chat> {
                 ],
               ),
             ),
-            CircleAvatar(
-              child: IconButton(
-                icon: Icon(
-                  Icons.send,
-                  color: Colors.white,
-                ),
+            // Padding(
+            //   padding: const EdgeInsets.only(left:8.0),
+            //   child: CircleAvatar(
+            //     child: IconButton(
+            //       icon: Icon(
+            //         Icons.send,
+            //         color: Colors.white,
+            //       ),
+            //       onPressed: () {
+            //         return msg.text.isNotEmpty?sendMessage(msg.text):null;
+            //       },
+            //     ),
+            //     maxRadius: 26,
+            //     backgroundColor: Colors.teal,
+            //     //radius: query.size.width / 12,
+            //   ),
+            // ),
+            Container(
+              padding: const EdgeInsets.only(left: 8,bottom: 3),
+              height: 55,
+              child: FloatingActionButton(
+
+                elevation: 3,
                 onPressed: () {
-                  return msg.text.isNotEmpty?sendMessage(msg.text):null;
-                },
+                  String a=msg.text.trim();
+                  if (a==""){
+                    
+                  }
+                  else{
+                    return msg.text.isNotEmpty?sendMessage(a):null;
+                  }
+                  },
+                  child:  Icon(
+                    Icons.send,
+                    color: Colors.white,
+                  ),
               ),
-              backgroundColor: Colors.teal,
-              radius: query.size.width / 12,
-            ),
+            )
           ],
         ),
       ),
@@ -228,6 +253,7 @@ class _ChatState extends State<Chat> {
 
   void sendMessage(String message) async {
     _textSubmitted(message);
+    //message.
     Firestore.instance
         .collection('messages')
         .document(gid)

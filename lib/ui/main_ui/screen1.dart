@@ -4,7 +4,7 @@ import '../chat_screen/chat_ui.dart';
 import '../../UserData/data.dart';
 import '../front_screen/front.dart';
 import './camera_screen.dart';
-import './screen3.dart';
+import './screen2.dart';
 
 String rid, rname, rpurl;
 
@@ -44,8 +44,9 @@ class _UIState extends State<UI> {
             
             appinterface(),
             //Maps(),
+            //Arcore(),
             Cam(),
-            //CameraApp(),
+            
             
             
             
@@ -58,12 +59,12 @@ class _UIState extends State<UI> {
               UserAccountsDrawerHeader(
                 accountName: Text(Get().username),
                 accountEmail: Text(Get().emailid),
-                currentAccountPicture: new Container(
+                currentAccountPicture: Container(
                   width: 190.0,
                   height: 190.0,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    image: new DecorationImage(
+                    image: DecorationImage(
                         fit: BoxFit.fill, image: NetworkImage(Get().photourl)),
                   ),
                 ),
