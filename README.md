@@ -15,4 +15,4 @@ Comes with an inbuilt Chat Bot.
 </figure>
 
 
-<img src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/vid1.mp4" height="300em" />  
+<img src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/12.gif" height="300em" />  
