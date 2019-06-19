@@ -14,3 +14,5 @@ Comes with an inbuilt Chat Bot.
   <iframe src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/vid1.mp4" height="300em"> </iframe>
 </figure>
 
+
+<img src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/vid1.mp4" height="300em" />  
