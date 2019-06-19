@@ -11,6 +11,8 @@ Comes with an inbuilt Chat Bot.
  
 
 <figure class="video_container">
-  <iframe src="https://photos.google.com/share/AF1QipP7TJKbGtQoNdb4DATV2L3vsOaL6xNYXJ1iW1NshUAmy6QGVyWuflucl_152nqIKA?key=cjcxa1paLUttNl84ZEE0dEJXaURrbU9UTjBEQjRB"> </iframe>
+  <iframe src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/vid1.mp4" height="300em"> </iframe>
 </figure>
 
+
+<img src="https://raw.githubusercontent.com/SamiK28/Pigeon/master/screenshots/vid1.mp4" height="300em" />  
