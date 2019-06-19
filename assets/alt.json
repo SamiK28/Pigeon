@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "dev-poet-244014",
+  "private_key_id": "0e9482ccea3b591880363c534aea71d113001e2b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCWpH2leiHzk02P\n0Vzn50F0A5leVB/Aii+Gufl8ZtQ8J4qqqUn0bWtQLOkNdosHQ/Q1DmpCacGhjNMb\nZWfgZ0Rpl0L7OmBcz6WGbZWV1IUZE372+Hfk+V944+UhZMqFtMlzpmilQkwG2HyA\nNiUGLmkzVaDfpA/9je5nMvej9z5C5p1D/i6jmcFEAnbgFPIGHQnotHuYWmPbONK1\nFyunVlYtdNKEx4FHEjtPuNvirFGLbK9TH18iITi+fefMp7+6WtcI5BEVOBwKPa9J\n2HeDe599d5sKMPTnYMYFEVV41sF0jEtXBG3Sh7Wcs1QOT812MhdG5Qq1/8mr0HEb\nsqH5l6kfAgMBAAECggEACKaWjo+mbnnpjNY9ixW1JQfl4UxcbG6jDw4T/ShcjL3K\nkUVaeV5lOLvzgDHsBvVIi1lyEbFIDNJs9xhKMFFN1PB6SLoP+ZR1EXSuj+Wd5RRB\nCMa4/92wNV2E9Xd3x9jbbrhCLydQ/V2mPKifVK0KnoeOzvj5cBqb87IyFWjn2uiT\n1WtujPaJukpt7DS/lGfq0y85729ePYu8vycUmhxbUR4Eys6hCNETjXse2Jp80+cp\n7nPoNNR/eJuE161T424rNBp0agkM1R23MumFCf0/gBhnLdrurH14Wg32d63u6VhY\naTHHsIMfWxQzTVoer79sRImE1yjGCW2qFMaB9bCgBQKBgQDIE7SrlNYFXhj6go/8\nTq6BeOHsPu7o/43G8pkjDJpGe2eNuKTyEMo4OCYJtxm0nXt7uGojOGXLnWwdn+kS\nc0SA3Q9EwAhI3acgeK6SRk208sMI1P0D7cs9vhfdDghHZY981mHy3b34GAaxZAK4\ngd8YuhGHymgngHueHNQ1374SzQKBgQDAv46XEC/gKlTPRk/zkDeoXbmn5Olxv78p\nFakkYNnTZV5SptSVTb3ERSLnI8LyeWvj3/cRfDy3GH/aNu/ACL3MEYexvKZ/dklU\n6/u++eLji9WTuILpokSy/kWV07PxLgWhzziLVF8XU8wAZUxdcMvvnz2ZhoESJ0U2\nadxvAzFjmwKBgQCv0AkiAU60NsSyVUqbRrS3lvbH92FPI0l9ei6xCuECcGxFr+xZ\nvgFEt6pNPTV8bipVRG8X9fYVn4ai3aMckGew6RACtNBS31t+AC4+4UJlcDGMMEUJ\nT8sZvVIQ8MS7oHYfF+/IT6wgN1SiSqTNZ2oYu2CuN2Gg3JlEDkc39B19PQKBgQCF\nyG+ACowwWzFibLsxovf+tI8YKZqeiSh1q8MqrM6EG+fMFl+XAc6lXBdNt1SoV/66\nu8kRKdo6e5bCLz9ZWrfh3IkCpJ4r+j4L439onqkMpxIm5fp3j1l/o11JERfkXr0q\nAlqM2pLl7hO6cpT+hjwGpdBrryAHKZqwmemWY/Dz4QKBgAJntFPerJL1fXbsdQjx\nrLppzHhqdYqGJrucu1zXqJklptbKbTEZ2vrrOuEfnP+4X7DGrQ28akqYtv/kfEs0\nmAmBl489vZRHCWS6u2Itz3SY7sm8S7zJG0qlfi72Va/xSVisP/AvCmJP5PTiVOuQ\nMJaYVnGr/CrUbP4ckv+KHTKP\n-----END PRIVATE KEY-----\n",
+  "client_email": "samarth-khanna@dev-poet-244014.iam.gserviceaccount.com",
+  "client_id": "107121975199593777141",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/samarth-khanna%40dev-poet-244014.iam.gserviceaccount.com"
+}

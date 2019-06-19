@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../main_ui/screen1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../UserData/data.dart';
+import 'package:flutter_dialogflow/dialogflow_v2.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 
 //var gid;
@@ -19,9 +22,12 @@ class _ChatState extends State<Chat> {
   List<bool> types = new List();
   String gid;
   ScrollController listScrollController = new ScrollController();
-
+  bool chatbot_check = false;
   @override
   void initState() {
+    if (rid.toString() == 't490ac6sGfsBDDQJ9Gxi') {
+      chatbot_check = true;
+    }
     super.initState();
     if (Get().key.hashCode <= rid.hashCode) {
       gid = '${Get().key}-$rid';
@@ -35,11 +41,34 @@ class _ChatState extends State<Chat> {
     MediaQueryData query = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(rname),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(right: 12),
+              child: CircleAvatar(
+                backgroundImage: rname != 'Pigeon Bot'
+                    ? NetworkImage(rpurl)
+                    : AssetImage('images/d2.png'),
+                radius: 18,
+              ),
+            ),
+            Container(
+              child: Text(rname),
+              margin: EdgeInsets.only(right: 50),
+            ),
+          ],
+        ),
         actions: <Widget>[Icon(Icons.more_vert)],
         backgroundColor: Colors.teal,
       ),
-      body: new Stack(
+      body: Stack(
         children: <Widget>[
           wallpaper(query),
           Positioned(
@@ -64,12 +93,8 @@ class _ChatState extends State<Chat> {
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context, index) {
                       return messageview(
-                        index,
-                        query,
-                        snapshot.data.documents[index]
-                      );
+                          index, query, snapshot.data.documents[index]);
                     },
-                    
                     reverse: true,
                     controller: listScrollController,
                   );
@@ -83,68 +108,65 @@ class _ChatState extends State<Chat> {
     );
   }
 
+  // void messageSender(String recieverid, String message) {
+  //   msg.clear();
 
+  //   var documentReference = Firestore.instance
+  //       .collection('messages')
+  //       .document(gid)
+  //       .collection(gid)
+  //       .document(DateTime.now().millisecondsSinceEpoch.toString());
 
+  //   Firestore.instance.runTransaction((transaction) async {
+  //     await transaction.set(
+  //       documentReference,
+  //       {
+  //         "senderId": Get().key,
+  //         "recieverId": recieverid,
+  //         "message": message,
+  //         "time": DateTime.now().millisecondsSinceEpoch.toString(),
+  //       },
+  //     );
+  //   });
+  //   listScrollController.animateTo(0.0,
+  //       duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+  // }
 
-  void messageSender(String recieverid, String message) {
-      msg.clear();
-
-      var documentReference = Firestore.instance
-          .collection('messages')
-          .document(gid)
-          .collection(gid)
-          .document(DateTime.now().millisecondsSinceEpoch.toString());
-
-      Firestore.instance.runTransaction((transaction) async {
-        await transaction.set(
-          documentReference,
-          {
-            "senderId": Get().key,
-            "recieverId": recieverid,
-            "message": message,
-            "time": DateTime.now().millisecondsSinceEpoch.toString(),
-          },
-        );
-      });
-      listScrollController.animateTo(0.0,
-          duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-     
-  }
-
-
-  Widget messageview(int index, MediaQueryData query,data) {
+  Widget messageview(int index, MediaQueryData query, data) {
     bool check;
-    check=data["senderId"].toString()==Get().key.toString()?true:false; 
+    check = data["senderId"].toString() == Get().key.toString() ? true : false;
 
     return Column(
       crossAxisAlignment:
-          check? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          check ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisAlignment:
               check ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              width: data["message"].toString().length>= 26
-                  ? query.size.width / 1.3
+              width: data["message"].toString().length >= 26
+                  ? query.size.width / 1.4
                   : null,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               margin: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                  color: check?Colors.lightGreenAccent.shade100:Colors.white, borderRadius: BorderRadius.circular(10)),
+                  color:
+                      check ? Colors.lightGreenAccent.shade100 : Colors.white,
+                  borderRadius: BorderRadius.circular(50)),
               child: Row(
-                mainAxisAlignment: check
-                    ? MainAxisAlignment.end
-                    : MainAxisAlignment.start,
+                mainAxisAlignment:
+                    check ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: <Widget>[
                   data["message"].toString().length >= 26
                       ? Flexible(
                           child: Text(
                             data["message"].toString(),
                             maxLines: 100,
+                            style: TextStyle(fontSize: 15),
                           ),
                         )
-                      : Text(data["message"].toString())
+                      : Text(data["message"].toString(),style: TextStyle(fontSize: 15),)
                 ],
               ),
             ),
@@ -162,7 +184,7 @@ class _ChatState extends State<Chat> {
         //alignment: Alignment.bottomCenter,
         //color: Colors.white,
         //height: query.size.height * giveheight() / 10,
-        padding: const EdgeInsets.symmetric(horizontal:7.0),
+        padding: const EdgeInsets.symmetric(horizontal: 7.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -218,24 +240,21 @@ class _ChatState extends State<Chat> {
             //   ),
             // ),
             Container(
-              padding: const EdgeInsets.only(left: 8,bottom: 3),
+              padding: const EdgeInsets.only(left: 8, bottom: 3),
               height: 55,
               child: FloatingActionButton(
-
                 elevation: 3,
                 onPressed: () {
-                  String a=msg.text.trim();
-                  if (a==""){
-                    
+                  String a = msg.text.trim();
+                  if (a == "") {
+                  } else {
+                    return msg.text.isNotEmpty ? sendMessage(a) : null;
                   }
-                  else{
-                    return msg.text.isNotEmpty?sendMessage(a):null;
-                  }
-                  },
-                  child:  Icon(
-                    Icons.send,
-                    color: Colors.white,
-                  ),
+                },
+                child: Icon(
+                  Icons.send,
+                  color: Colors.white,
+                ),
               ),
             )
           ],
@@ -248,12 +267,9 @@ class _ChatState extends State<Chat> {
     msg.clear();
   }
 
-
-
-
   void sendMessage(String message) async {
     _textSubmitted(message);
-    //message.
+
     Firestore.instance
         .collection('messages')
         .document(gid)
@@ -265,6 +281,27 @@ class _ChatState extends State<Chat> {
       "message": message,
       "time": DateTime.now().millisecondsSinceEpoch.toString(),
     });
+    if (chatbot_check) {
+      AuthGoogle authGoogle = await AuthGoogle(
+              fileJson: "assets/creds.json")
+          .build();
+      Dialogflow dialogflow =
+          Dialogflow(authGoogle: authGoogle, language: Language.ENGLISH);
+
+      AIResponse response = await dialogflow.detectIntent(message);
+      print(response.getMessage());
+      Firestore.instance
+          .collection('messages')
+          .document(gid)
+          .collection(gid)
+          .document()
+          .setData({
+        "senderId": rid,
+        "recieverId": Get().key,
+        "message": response.getMessage(),
+        "time": DateTime.now().millisecondsSinceEpoch.toString(),
+      });
+    }
     method1();
     setState(() {});
   }
@@ -306,4 +343,6 @@ class _ChatState extends State<Chat> {
       width: query.size.width,
     );
   }
+
+  Future<Null> chatbot_msg(String message) async {}
 }

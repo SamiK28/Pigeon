@@ -21,7 +21,7 @@ dependencies:
     sdk: flutter
   cloud_firestore: ^0.9.5+2
   rxdart: ^0.21.0
-  http: ^0.12.0+1
+  http: ^0.11.3+16
   firebase_storage: any
   shared_preferences: ^0.5.1+1
   image_picker: ^0.5.0+3
@@ -42,7 +42,7 @@ dependencies:
   firebase_database: ^2.0.2
   firebase_auth: ^0.8.1+4
   firebase_core: ^0.3.1+1
-
+  flutter_dialogflow: any
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +70,9 @@ flutter:
     - images/signin.png
     - images/a2.jpg
     - images/gvector.png
+    - assets/alt.json
+    - assets/creds.json
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

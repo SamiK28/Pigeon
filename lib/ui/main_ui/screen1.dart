@@ -118,7 +118,7 @@ Widget appinterface() {
 
               List users = snapshot.data.documents;
               users.removeWhere((i) => Get().key == i["id"]);
-              print(users);
+              print(users[0]);
               return ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemCount: users.length,
@@ -127,8 +127,8 @@ Widget appinterface() {
                       children: <Widget>[
                         ListTile(
                           leading: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(users[index]['photourl']),
+                            backgroundImage:users[index]['name'].toString()!='Pigeon Bot'?
+                                NetworkImage(users[index]['photourl']):AssetImage('images/d2.png')
                           ),
                           title: Text(users[index]['name']),
                           subtitle: Text(users[index]['email']),
