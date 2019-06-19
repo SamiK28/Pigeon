@@ -1,6 +1,8 @@
 # Pigeon
 Pigeon is a realtime online chatting application .
+
 Uses Material Design .
+
 Comes with an inbuilt Chat Bot.
 
 ## Screenshots
