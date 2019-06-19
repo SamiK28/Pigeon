@@ -5,12 +5,12 @@ Comes with an inbuilt Chat Bot.
 
 ## Screenshots
 
-![screenshots](1.png)
-![screenshots](2.png)
-![screenshots](3.png)
-![screenshots](4.png)
-![screenshots](5.png)
-![screenshots](6.png)
-![screenshots](7.png)
-![screenshots](8.png)
-![screenshots](9.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/1.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/2.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/3.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/4.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/5.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/6.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/7.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/8.png)
+!(https://github.com/SamiK28/Pigeon/blob/master/screenshots/9.png)
