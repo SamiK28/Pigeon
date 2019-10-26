@@ -5,6 +5,8 @@
 
 :large_orange_diamond: Comes with an inbuilt Chat Bot
 
+:large_orange_diamond: Sign In using google
+
 ## Screenshots
 
 
