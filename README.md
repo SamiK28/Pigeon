@@ -3,7 +3,7 @@
 
 :large_orange_diamond: Uses Material Design 
 
-:large_orange_diamond: Messages are End-To-End Encrypted using AES
+:large_orange_diamond: Messages are End-To-End Encrypted using AES 256
 
 :large_orange_diamond: Comes with an inbuilt Chat Bot
 
